@@ -1,0 +1,420 @@
+{% extends "masterlayout.html" %}
+
+{% block content %}
+<!-- Hero Slider with Your Data -->
+<div class="hero-slider">
+    <div class="slider-container">
+        {% for slider in sliders %}
+        <div class="slide {% if forloop.first %}active{% endif %}" 
+             {% if slider.image %}style="background-image: url('{{ slider.image.url }}');"{% endif %}>
+            <div class="slide-content">
+                {% if slider.title %}
+                <h1>{{ slider.title }}</h1>
+                {% endif %}
+                
+                {% if slider.subtitle %}
+                <h2>{{ slider.subtitle }}</h2>
+                {% endif %}
+                
+                {% if slider.description %}
+                <p>{{ slider.description }}</p>
+                {% endif %}
+                
+                {% if slider.cta_text %}
+                    {% if slider.cta_link %}
+                        <a href="{{ slider.cta_link }}" class="cta-button" target="_blank">{{ slider.cta_text }}</a>
+                    {% elif slider.cta_internal_page %}
+                        <a href="{% url slider.cta_internal_page %}" class="cta-button">{{ slider.cta_text }}</a>
+                    {% else %}
+                        <span class="cta-button">{{ slider.cta_text }}</span>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        {% endfor %}
+    </div>
+
+    <!-- Navigation Arrows (only show if more than 1 slide) -->
+    {% if sliders|length > 1 %}
+    <button class="slider-arrow prev" onclick="previousSlide()">&#8249;</button>
+    <button class="slider-arrow next" onclick="nextSlide()">&#8250;</button>
+
+    <!-- Navigation Dots -->
+    <div class="slider-nav">
+        {% for slider in sliders %}
+        <div class="nav-dot {% if forloop.first %}active{% endif %}" onclick="currentSlide({{ forloop.counter }})"></div>
+        {% endfor %}
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+    {% endif %}
+</div>
+
+
+<style>
+/* Hero Slider Styles */
+.hero-slider {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    margin-top: 0; /* Adjust based on your navbar height */
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+}
+
+.slide-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.slide-content h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: slideInUp 1s ease-out;
+}
+
+.slide-content h2 {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    animation: slideInUp 1s ease-out 0.2s both;
+}
+
+.slide-content p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    animation: slideInUp 1s ease-out 0.4s both;
+    line-height: 1.6;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    animation: slideInUp 1s ease-out 0.6s both;
+    border: none;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+    background: linear-gradient(45deg, #0056b3, #004085);
+    color: white !important;
+    text-decoration: none;
+}
+
+/* Slider Navigation */
+.slider-nav {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 3;
+}
+
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+.nav-dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Arrow Navigation */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 3;
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-arrow:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-arrow.prev {
+    left: 2rem;
+}
+
+.slider-arrow.next {
+    right: 2rem;
+}
+
+/* Animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Progress Bar */
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    z-index: 3;
+    /* No animation here - will be added by JavaScript */
+}
+
+@keyframes progress {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .slider-arrow {
+        display: none;
+    }
+    
+    .slide-content {
+        padding: 0 1rem;
+    }
+    
+    .slider-nav {
+        bottom: 1rem;
+    }
+}
+
+/* Container adjustments */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.demo-section {
+    padding: 0;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.nav-dot');
+    const totalSlides = slides.length;
+    let slideInterval;
+
+    // Only initialize slider if there are slides
+    if (totalSlides > 0) {
+        initSlider();
+    }
+
+    // Initialize slider
+    function initSlider() {
+        showSlide(currentSlideIndex);
+        if (totalSlides > 1) {
+            startAutoSlide();
+        }
+    }
+
+    // Show specific slide
+    function showSlide(index) {
+        // Remove active class from all slides and dots
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        // Add active class to current slide and dot
+        if (slides[index]) {
+            slides[index].classList.add('active');
+        }
+        if (dots[index]) {
+            dots[index].classList.add('active');
+        }
+
+        // Reset progress bar animation if there are multiple slides
+        if (totalSlides > 1) {
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) {
+                progressBar.style.animation = 'none';
+                progressBar.offsetHeight; // Trigger reflow
+                progressBar.style.animation = 'progress 4s linear infinite';
+            }
+        }
+    }
+
+    // Next slide
+    window.nextSlide = function() {
+        if (totalSlides > 1) {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+            resetAutoSlide();
+        }
+    }
+
+    // Previous slide
+    window.previousSlide = function() {
+        if (totalSlides > 1) {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+            resetAutoSlide();
+        }
+    }
+
+    // Go to specific slide
+    window.currentSlide = function(index) {
+        if (totalSlides > 1) {
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+            resetAutoSlide();
+        }
+    }
+
+    // Start automatic sliding
+    function startAutoSlide() {
+        slideInterval = setInterval(() => {
+            nextSlide();
+        }, 4000); // Change slide every 4 seconds
+    }
+
+    // Reset automatic sliding
+    function resetAutoSlide() {
+        clearInterval(slideInterval);
+        startAutoSlide();
+    }
+
+    // Pause on hover (only if multiple slides)
+    if (totalSlides > 1) {
+        const heroSlider = document.querySelector('.hero-slider');
+        if (heroSlider) {
+            heroSlider.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+
+            heroSlider.addEventListener('mouseleave', () => {
+                startAutoSlide();
+            });
+        }
+    }
+
+    // Touch support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const sliderContainer = document.querySelector('.slider-container');
+    if (sliderContainer && totalSlides > 1) {
+        sliderContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        sliderContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+    }
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                nextSlide(); // Swipe left - next slide
+            } else {
+                previousSlide(); // Swipe right - previous slide
+            }
+        }
+    }
+
+    // Keyboard navigation (only if multiple slides)
+    if (totalSlides > 1) {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                previousSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+    }
+});
+</script>
+
+{% endblock %}
