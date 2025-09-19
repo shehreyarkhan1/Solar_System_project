@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "solar_system_drf/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    { "src": "/static/(.*)", "dest": "/static/$1" },
+    { "src": "/(.*)", "dest": "solar_system_drf/wsgi.py" }
+  ]
+}

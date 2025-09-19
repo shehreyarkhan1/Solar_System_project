@@ -21,12 +21,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ydg9@pk^+$2r9a=ge(vebf#%_-_wu_@m7qr7yyb%2u4bwd@e1f"
+# SECRET_KEY = "django-insecure-ydg9@pk^+$2r9a=ge(vebf#%_-_wu_@m7qr7yyb%2u4bwd@e1f"
+SECRET_KEY = os.getenv("SECRET_KEY", "insecure-default")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1")
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    ".vercel.app",
+    "localhost",
+    # maybe your custom domain if you have one
+]
 
 
 # Application definition
@@ -44,8 +52,9 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
 # Make sure your app is in INSTALLED_APPS
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -59,8 +68,10 @@ INSTALLED_APPS = [
 ]
 
 
+# Whitenoise configuration
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -69,6 +80,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "myapp.middleware.auth_middleware.AuthMiddleware",
 ]
+
+# For WhiteNoise: enables efficient static file serving
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Media files (if needed)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 ROOT_URLCONF = "solar_system_drf.urls"
 
@@ -158,13 +176,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "static/"
+# STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-STATIC_DIR = [BASE_DIR / "static"]
+# STATIC_DIR = [BASE_DIR / "static"]
 # ADMIN_SITE_HEADER = "Solar Admin Panel"
 # ADMIN_SITE_TITLE = "Solar Control"
 # ADMIN_INDEX_TITLE = "Welcome to the Solar Admin"
+# Allowed hosts
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
