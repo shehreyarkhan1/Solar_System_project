@@ -28,4 +28,4 @@ urlpatterns = [
     path(
         "deleteuser/<int:id>/", deleteuser, name="deleteuser"
     ),  # ✅ now it’s a function
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -73,6 +73,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # STATIC_ROOT = os.path.join(BASE_DIR, "myapp/staticfils")
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [
+    BASE_DIR / "myapp/static",
+]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Make sure your app is in INSTALLED_APPS
