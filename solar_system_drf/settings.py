@@ -15,6 +15,7 @@ import os
 # Add these at the top of your settings.py
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qs
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -55,13 +56,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 # Static files configuration
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+# STATIC_URL = "/static/"
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # only if you have extra static folders
+
 # Make sure your app is in INSTALLED_APPS
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -152,9 +163,6 @@ WSGI_APPLICATION = "solar_system_drf.wsgi.application"
 
 # for production
 # Add these at the top of your settings.py
-import os
-from dotenv import load_dotenv
-from urllib.parse import urlparse, parse_qsl
 
 load_dotenv()
 
