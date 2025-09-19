@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+
 # Add these at the top of your settings.py
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qs
@@ -65,24 +66,26 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "myapp/static")
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # only if you have extra static folders
+# STATIC_URL = "/static/"
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+# STATIC_ROOT = os.path.join(BASE_DIR, "myapp/staticfils")
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Make sure your app is in INSTALLED_APPS
 INSTALLED_APPS = [
+    "django.contrib.staticfiles",
+    "whitenoise.runserver_nostatic",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
     "rest_framework",
-    "myapp",  # Make sure this is added
+    "myapp",
 ]
 
 
@@ -149,7 +152,7 @@ WSGI_APPLICATION = "solar_system_drf.wsgi.application"
 #     }
 # }
 
-# for local database 
+# for local database
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
@@ -184,18 +187,16 @@ load_dotenv()
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPostgres.path[1:],  # "solar_system"
-        'USER': tmpPostgres.username,
-        'PASSWORD': tmpPostgres.password,
-        'HOST': tmpPostgres.hostname,
-        'PORT': tmpPostgres.port or 5432,
-        'OPTIONS': {k: v[0] for k, v in parse_qs(tmpPostgres.query).items()},
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": tmpPostgres.path[1:],  # "solar_system"
+        "USER": tmpPostgres.username,
+        "PASSWORD": tmpPostgres.password,
+        "HOST": tmpPostgres.hostname,
+        "PORT": tmpPostgres.port or 5432,
+        "OPTIONS": {k: v[0] for k, v in parse_qs(tmpPostgres.query).items()},
     }
 }
-
-
 
 
 # Password validation

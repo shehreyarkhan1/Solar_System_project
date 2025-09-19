@@ -3,11 +3,17 @@
   "builds": [
     {
       "src": "solar_system_drf/wsgi.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.12.9"
+      }
     }
   ],
   "routes": [
-    { "src": "/static/(.*)", "dest": "/static/$1" },
-    { "src": "/(.*)", "dest": "solar_system_drf/wsgi.py" }
+    {
+      "src": "/(.*)",
+      "dest": "/static/$1"
+    }
   ]
 }
