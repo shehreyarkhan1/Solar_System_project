@@ -3,15 +3,27 @@
   "buildCommand": "python manage.py collectstatic --noinput",
   "builds": [
     {
+      "src": "staticfiles/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
-        "runtime": "python3.12.9"
+        "runtime": "python3.12"
       }
     }
   ],
   "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/staticfiles/$1"
+    },
+    {
+      "src": "/media/(.*)",
+      "dest": "/media/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "/api/index.py"

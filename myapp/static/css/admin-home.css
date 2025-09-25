@@ -1,0 +1,224 @@
+/* Admin Home Slider Management Styles */
+.slider-management-container {
+    padding: 1.5rem;
+}
+
+.slider-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    background: white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.slider-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.slider-card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.slider-card-body {
+    padding: 1.5rem;
+}
+
+.slider-image-preview {
+    max-width: 60px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+
+.slider-info {
+    margin: 0.5rem 0;
+    color: #64748b;
+}
+
+.slider-actions {
+    text-align: right;
+}
+
+.slider-modal-content {
+    padding: 0;
+}
+
+.slider-modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    border-bottom: none;
+}
+
+.slider-modal-body {
+    padding: 1.5rem;
+}
+
+.slider-form-group {
+    margin-bottom: 1rem;
+}
+
+.slider-form-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.slider-form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.slider-form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.slider-form-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    background-color: white;
+}
+
+.slider-form-file {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.slider-image-upload {
+    margin-top: 1rem;
+}
+
+.slider-current-image {
+    margin: 0.5rem 0;
+    color: #64748b;
+}
+
+.slider-image-thumbnail {
+    max-width: 80px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    margin-left: 0.5rem;
+}
+
+.slider-modal-footer {
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.slider-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.slider-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.slider-btn-primary:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    color: white;
+}
+
+.slider-btn-secondary {
+    background: #6b7280;
+    color: white;
+}
+
+.slider-btn-secondary:hover {
+    background: #4b5563;
+    color: white;
+}
+
+.slider-btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.slider-btn-danger:hover {
+    background: #dc2626;
+    color: white;
+}
+
+.slider-empty-state {
+    text-align: center;
+    padding: 2rem;
+}
+
+.slider-empty-icon {
+    margin-bottom: 1rem;
+}
+
+.slider-empty-icon span {
+    font-size: 3rem;
+}
+
+.slider-empty-title {
+    margin-bottom: 1rem;
+    color: #374151;
+}
+
+.slider-empty-text {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .slider-management-container {
+        padding: 1rem;
+    }
+    
+    .slider-card-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .slider-card-actions {
+        justify-content: center;
+    }
+    
+    .slider-modal-body {
+        padding: 1rem;
+    }
+    
+    .slider-modal-footer {
+        padding: 1rem;
+    }
+}

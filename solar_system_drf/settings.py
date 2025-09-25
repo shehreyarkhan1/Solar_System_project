@@ -26,8 +26,7 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ydg9@pk^+$2r9a=ge(vebf#%_-_wu_@m7qr7yyb%2u4bwd@e1f"
-SECRET_KEY = os.getenv("SECRET_KEY", "insecure-default")
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-ydg9@pk^+$2r9a=ge(vebf#%_-_wu_@m7qr7yyb%2u4bwd@e1f")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -63,14 +62,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # ]
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# STATIC_URL = "/static/"
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-# STATIC_ROOT = os.path.join(BASE_DIR, "myapp/staticfils")
+# Static files configuration
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
@@ -81,7 +73,7 @@ STATICFILES_DIRS = [
 
 # Ensure static files are served correctly in production
 if not DEBUG:
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Make sure your app is in INSTALLED_APPS
 INSTALLED_APPS = [
@@ -192,19 +184,32 @@ load_dotenv()
 #     }
 # }
 
-tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": tmpPostgres.path[1:],  # "solar_system"
-        "USER": tmpPostgres.username,
-        "PASSWORD": tmpPostgres.password,
-        "HOST": tmpPostgres.hostname,
-        "PORT": tmpPostgres.port or 5432,
-        "OPTIONS": {k: v[0] for k, v in parse_qs(tmpPostgres.query).items()},
+# Database configuration for Neon (Production)
+if os.getenv("DATABASE_URL"):
+    tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": tmpPostgres.path[1:],
+            "USER": tmpPostgres.username,
+            "PASSWORD": tmpPostgres.password,
+            "HOST": tmpPostgres.hostname,
+            "PORT": tmpPostgres.port or 5432,
+            "OPTIONS": {k: v[0] for k, v in parse_qs(tmpPostgres.query).items()},
+        }
     }
-}
+else:
+    # Local development database
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "solar_system",
+            "USER": "postgres",
+            "PASSWORD": "admin",
+            "HOST": "localhost",
+            "PORT": "5432",
+        }
+    }
 
 
 # Password validation

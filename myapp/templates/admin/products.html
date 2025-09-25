@@ -1,4 +1,10 @@
 {% extends "admin/adminmasterlayout.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <div class="container-fluid px-4">
@@ -114,7 +120,7 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th style="width: 50px;">#</th>
+                  <th class="products-id-col">#</th>
                   <th>Name</th>
                   <th>Brand</th>
                   <th>Model</th>
@@ -140,7 +146,7 @@
                   <td>${{ i.price }}</td>
                   <td>
                     {% if i.image %}
-                    <img src="{{ i.image.url }}" alt="{{ i.name }}" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+                    <img src="{{ i.image.url }}" alt="{{ i.name }}" class="products-image">
                     {% else %}
                     <span class="text-muted small">No image</span>
                     {% endif %}
@@ -251,7 +257,7 @@
               <input type="file" class="form-control" id="edit_image{{ i.id }}" name="image" accept="image/*">
               {% if i.image %}
               <div class="form-text">
-                Current: <img src="{{ i.image.url }}" alt="{{ i.name }}" class="img-thumbnail" style="max-width: 40px; max-height: 40px;">
+                Current: <img src="{{ i.image.url }}" alt="{{ i.name }}" class="product-image-thumbnail">
               </div>
               {% endif %}
             </div>
@@ -289,7 +295,7 @@
         <div class="row">
           <div class="col-md-4">
             {% if i.image %}
-            <img src="{{ i.image.url }}" alt="{{ i.name }}" class="img-fluid rounded mb-3" style="max-height: 250px;">
+            <img src="{{ i.image.url }}" alt="{{ i.name }}" class="product-detail-image">
             {% else %}
             <div class="bg-light p-4 text-center rounded mb-3">
               <i class="fas fa-image fa-2x text-muted"></i>
@@ -299,7 +305,7 @@
           </div>
           <div class="col-md-8">
             <table class="table table-borderless table-sm">
-              <tr><th style="width: 40%;">Name:</th><td>{{ i.name }}</td></tr>
+              <tr><th>Name:</th><td>{{ i.name }}</td></tr>
               <tr><th>Brand:</th><td>{{ i.brand }}</td></tr>
               <tr><th>Model:</th><td>{{ i.model }}</td></tr>
               <tr><th>Power:</th><td>{{ i.power_capacity_kw }} kW</td></tr>

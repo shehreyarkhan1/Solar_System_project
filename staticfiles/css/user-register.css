@@ -1,0 +1,359 @@
+/* User Registration Styles */
+.user-register-container {
+    padding: 2rem;
+}
+
+.user-register-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 0.75rem 0.75rem 0 0;
+    text-align: center;
+}
+
+.user-register-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+}
+
+.user-register-subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.user-register-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 0 0 0.75rem 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.user-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.user-form-label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.user-form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.user-form-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.user-form-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+}
+
+.user-form-select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.user-form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.user-form-textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.user-form-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.user-form-checkbox input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: #667eea;
+}
+
+.user-form-checkbox label {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.user-form-submit {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.user-form-submit:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.user-form-submit:active {
+    transform: translateY(0);
+}
+
+/* User List Table Styles */
+.user-list-container {
+    padding: 2rem;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.user-table th.user-id-col {
+    width: 60px;
+    text-align: center;
+}
+
+.user-table th.user-name-col {
+    width: 200px;
+}
+
+.user-table th.user-email-col {
+    width: 250px;
+}
+
+.user-table th.user-actions-col {
+    width: 120px;
+    text-align: center;
+}
+
+.user-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
+}
+
+.user-table tr:last-child td {
+    border-bottom: none;
+}
+
+.user-table tr:hover {
+    background-color: #f9fafb;
+}
+
+.user-id {
+    text-align: center;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #374151;
+}
+
+.user-email {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.user-actions {
+    text-align: center;
+}
+
+.user-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.user-btn-edit {
+    background: #10b981;
+    color: white;
+}
+
+.user-btn-edit:hover {
+    background: #059669;
+    color: white;
+}
+
+.user-btn-delete {
+    background: #ef4444;
+    color: white;
+}
+
+.user-btn-delete:hover {
+    background: #dc2626;
+    color: white;
+}
+
+/* Password Strength Indicator */
+.password-strength-container {
+    margin-top: 0.5rem;
+}
+
+.password-strength-bar {
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 2px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.password-strength-fill {
+    height: 100%;
+    transition: all 0.3s ease;
+    width: 0%;
+}
+
+.password-strength-weak .password-strength-fill {
+    background: #ef4444;
+    width: 25%;
+}
+
+.password-strength-fair .password-strength-fill {
+    background: #f59e0b;
+    width: 50%;
+}
+
+.password-strength-good .password-strength-fill {
+    background: #10b981;
+    width: 75%;
+}
+
+.password-strength-strong .password-strength-fill {
+    background: #059669;
+    width: 100%;
+}
+
+.password-strength-text {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+.password-strength-weak .password-strength-text {
+    color: #ef4444;
+}
+
+.password-strength-fair .password-strength-text {
+    color: #f59e0b;
+}
+
+.password-strength-good .password-strength-text {
+    color: #10b981;
+}
+
+.password-strength-strong .password-strength-text {
+    color: #059669;
+}
+
+/* Form Validation Styles */
+.user-form-error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.user-form-input.error {
+    border-color: #ef4444;
+}
+
+.user-form-input.success {
+    border-color: #10b981;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .user-register-container,
+    .user-list-container {
+        padding: 1rem;
+    }
+    
+    .user-register-form {
+        padding: 1.5rem;
+    }
+    
+    .user-table {
+        font-size: 0.875rem;
+    }
+    
+    .user-table th,
+    .user-table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .user-table th.user-email-col {
+        display: none;
+    }
+    
+    .user-table td.user-email-col {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-table th.user-name-col {
+        width: auto;
+    }
+    
+    .user-table th.user-actions-col {
+        width: auto;
+    }
+    
+    .user-btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+    }
+}
