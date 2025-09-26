@@ -1,18 +1,17 @@
 {
   "version": 2,
-  "buildCommand": "python manage.py collectstatic --noinput",
   "builds": [
+    {
+      "src": "manage.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb",
+        "runtime": "python3.12"
+      }
+    },
     {
       "src": "staticfiles/**",
       "use": "@vercel/static"
-    },
-    {
-      "src": "api/index.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.12"
-      }
     }
   ],
   "routes": [
@@ -26,10 +25,14 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/api/index.py"
+      "dest": "manage.py"
     }
   ],
   "env": {
-    "DEBUG": "False"
-  }
+    "DEBUG": "False",
+    "SECRET_KEY": "your-secret-key",
+    "ALLOWED_HOSTS": ".vercel.app",
+    "DATABASE_URL": "your-postgres-url"
+  },
+  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput"
 }
