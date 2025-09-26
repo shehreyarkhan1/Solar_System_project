@@ -5,12 +5,16 @@
       "src": "manage.py",
       "use": "@vercel/python",
       "config": {
-        "maxLambdaSize": "50mb",
-        "runtime": "python3.12"
+        "runtime": "python3.12",
+        "maxLambdaSize": "50mb"
       }
     },
     {
       "src": "staticfiles/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "media/**",
       "use": "@vercel/static"
     }
   ],
@@ -34,5 +38,5 @@
     "ALLOWED_HOSTS": ".vercel.app",
     "DATABASE_URL": "your-postgres-url"
   },
-  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+  "buildCommand": "python -m pip install --upgrade pip && pip install -r requirements.txt && python manage.py collectstatic --noinput"
 }
