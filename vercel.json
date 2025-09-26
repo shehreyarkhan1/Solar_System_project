@@ -38,5 +38,5 @@
     "ALLOWED_HOSTS": ".vercel.app",
     "DATABASE_URL": "your-postgres-url"
   },
-  "buildCommand": "python -m pip install --upgrade pip && pip install -r requirements.txt && python manage.py collectstatic --noinput"
+  "buildCommand": "python manage.py collectstatic --noinput"
 }
