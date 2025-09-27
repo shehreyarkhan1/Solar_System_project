@@ -2,11 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "manage.py",
+      "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "runtime": "python3.12",
-        "maxLambdaSize": "50mb"
+        "runtime": "python3.11"
       }
     },
     {
@@ -29,14 +28,13 @@
     },
     {
       "src": "/(.*)",
-      "dest": "manage.py"
+      "dest": "/api/index.py"
     }
   ],
   "env": {
     "DEBUG": "False",
-    "SECRET_KEY": "your-secret-key",
+    "SECRET_KEY": "your-secret-key-here",
     "ALLOWED_HOSTS": ".vercel.app",
     "DATABASE_URL": "your-postgres-url"
-  },
-  "buildCommand": "python manage.py collectstatic --noinput"
+  }
 }

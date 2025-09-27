@@ -37,7 +37,8 @@ DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1")
 ALLOWED_HOSTS = [
     ".vercel.app",
     "localhost",
-    # maybe your custom domain if you have one
+    "127.0.0.1",
+    # Add your custom domain if you have one
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://*.vercel.app",
@@ -264,3 +265,13 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     CSRF_TRUSTED_ORIGINS = ["https://*.vercel.app"]
+
+# Vercel specific settings
+USE_TZ = True
+TIME_ZONE = "UTC"
+
+# Disable Django's built-in server in production
+if not DEBUG:
+    import django
+    from django.core.management.commands.runserver import Command as RunserverCommand
+    RunserverCommand.default_port = "8000"

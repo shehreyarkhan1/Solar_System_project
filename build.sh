@@ -8,3 +8,5 @@ python manage.py collectstatic --noinput
 
 # Run migrations (if needed)
 python manage.py migrate --noinput
+
+echo "Build completed successfully!"

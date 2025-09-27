@@ -1,7 +1,7 @@
 Django>=5.2,<6.0
-whitenoise
-gunicorn
-psycopg2-binary
-djangorestframework
-python-dotenv
-dj-database-url
+whitenoise==6.6.0
+gunicorn==21.2.0
+psycopg2-binary==2.9.9
+djangorestframework==3.15.2
+python-dotenv==1.0.0
+dj-database-url==2.2.0
