@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Solar System Django Project",
   "scripts": {
-    "vercel-build": "pip cache purge && pip install --no-cache-dir -r requirements.txt && python manage.py collectstatic --noinput"
+    "vercel-build": "pip install -r requirements.txt && python manage.py collectstatic --noinput"
   },
   "engines": {
-    "node": "18.x",
-    "python": "3.9.x"
+    "node": "18.x"
   }
 }

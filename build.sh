@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Clear pip cache
-pip cache purge
-
-# Install dependencies with no cache
-pip install --no-cache-dir -r requirements.txt
+# Install dependencies
+pip install -r requirements.txt
 
 # Collect static files
 python manage.py collectstatic --noinput
