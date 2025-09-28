@@ -1,7 +1,22 @@
 {
   "version": 2,
-  "outputDirectory": "staticfiles",
-  "framework": "django",
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.11"
+      }
+    },
+    {
+      "src": "staticfiles/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "media/**",
+      "use": "@vercel/static"
+    }
+  ],
   "routes": [
     {
       "src": "/static/(.*)",

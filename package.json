@@ -1,0 +1,11 @@
+{
+  "name": "solar-system-django",
+  "version": "1.0.0",
+  "description": "Solar System Django Project",
+  "scripts": {
+    "vercel-build": "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
