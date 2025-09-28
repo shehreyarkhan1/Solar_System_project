@@ -6,6 +6,7 @@
     "vercel-build": "pip install -r requirements.txt && python manage.py collectstatic --noinput"
   },
   "engines": {
-    "node": "18.x"
+    "node": "18.x",
+    "python": "3.9.x"
   }
 }
