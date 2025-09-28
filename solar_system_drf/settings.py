@@ -199,18 +199,18 @@ if os.getenv("DATABASE_URL"):
             "OPTIONS": {k: v[0] for k, v in parse_qs(tmpPostgres.query).items()},
         }
     }
-else:
+# else:
     # Local development database
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "solar_system",
-            "USER": "postgres",
-            "PASSWORD": "admin",
-            "HOST": "localhost",
-            "PORT": "5432",
-        }
-    }
+    # DATABASES = {
+    #     "default": {
+    #         "ENGINE": "django.db.backends.postgresql",
+    #         "NAME": "solar_system",
+    #         "USER": "postgres",
+    #         "PASSWORD": "admin",
+    #         "HOST": "localhost",
+    #         "PORT": "5432",
+    #     }
+    # }
 
 
 # Password validation
