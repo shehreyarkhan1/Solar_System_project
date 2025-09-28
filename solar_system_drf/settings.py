@@ -75,6 +75,8 @@ STATICFILES_DIRS = [
 # Ensure static files are served correctly in production
 if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+else:
+    STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
 
 # Make sure your app is in INSTALLED_APPS
 INSTALLED_APPS = [
