@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "",
   "builds": [
     {
       "src": "api/index.py",
@@ -33,8 +34,8 @@
   ],
   "env": {
     "DEBUG": "False",
-    "SECRET_KEY": "your-secret-key-here",
+    "SECRET_KEY": "n@8v%0r2e)6@c4m2#=b9#t$k6x&=2j5fj87c@)9&u3%5c8^$f_",
     "ALLOWED_HOSTS": ".vercel.app",
-    "DATABASE_URL": "your-postgres-url"
+    "DATABASE_URL": "postgresql://neondb_owner:npg_TyeOuFq1lRJ5@ep-dawn-boat-a1tq1b29-pooler.ap-southeast-1.aws.neon.tech/solar_system?sslmode=require&channel_binding=require"
   }
 }
