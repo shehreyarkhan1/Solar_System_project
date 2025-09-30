@@ -264,3 +264,4 @@ CLOUDINARY_STORAGE = {
 
 # Set Cloudinary as default storage for media
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
