@@ -1,5 +1,3 @@
-
-
 from pathlib import Path
 import os
 
@@ -7,8 +5,11 @@ import os
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qs
 
+from urllib.parse import urlparse, parse_qsl
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 load_dotenv()
 
@@ -60,11 +61,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # ]
 
 # Configure static files
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Enable WhiteNoise for static file compression
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Use default static files storage for Vercel
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -142,24 +143,20 @@ WSGI_APPLICATION = "solar_system_drf.wsgi.application"
 
 
 # for production
-# Add these at the top of your settings.py
-
-load_dotenv()
-
 # Database configuration for Neon (Production)
-if os.getenv("DATABASE_URL"):
-    tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": tmpPostgres.path[1:],
-            "USER": tmpPostgres.username,
-            "PASSWORD": tmpPostgres.password,
-            "HOST": tmpPostgres.hostname,
-            "PORT": tmpPostgres.port or 5432,
-            "OPTIONS": {k: v[0] for k, v in parse_qs(tmpPostgres.query).items()},
-        }
-    }
+# if os.getenv("DATABASE_URL"):
+#     tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             "NAME": tmpPostgres.path[1:],
+#             "USER": tmpPostgres.username,
+#             "PASSWORD": tmpPostgres.password,
+#             "HOST": tmpPostgres.hostname,
+#             "PORT": tmpPostgres.port or 5432,
+#             "OPTIONS": {k: v[0] for k, v in parse_qs(tmpPostgres.query).items()},
+#         }
+#     }
 # else:
 # Local development database
 # DATABASES = {
@@ -172,6 +169,22 @@ if os.getenv("DATABASE_URL"):
 #         "PORT": "5432",
 #     }
 # }
+
+
+# Replace the DATABASES section of your settings.py with this
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": tmpPostgres.path.replace("/", ""),
+        "USER": tmpPostgres.username,
+        "PASSWORD": tmpPostgres.password,
+        "HOST": tmpPostgres.hostname,
+        "PORT": 5432,
+        "OPTIONS": dict(parse_qsl(tmpPostgres.query)),
+    }
+}
 
 
 # Password validation
