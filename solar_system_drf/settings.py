@@ -85,6 +85,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "rest_framework",
     "myapp",
+    "cloudinary",
+    "cloudinary_storage",
 ]
 
 
@@ -253,3 +255,12 @@ LOGGING = {
         "level": "INFO",
     },
 }
+
+# Cloudinary config
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("deo5wmxnv"),
+    "API_KEY": os.getenv("619131927264642"),
+    "API_SECRET": os.getenv("lP0p4eLpByhUK2DuT9zeSAHz_OE"),
+}
+# Set Cloudinary as default storage for media
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
