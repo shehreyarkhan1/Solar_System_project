@@ -1,11 +1,15 @@
-from django.core.wsgi import get_wsgi_application
 import os
+import sys
+from django.core.wsgi import get_wsgi_application
+
+# Add project root to sys.path
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 # Set the Django settings module
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'solar_system_drf.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "solar_system_drf.settings")
 
-# Get the WSGI application
+# WSGI application
 application = get_wsgi_application()
 
-# Export the WSGI application as the handler for Vercel
-handler = application
+# Vercel expects this variable 👇
+app = application
