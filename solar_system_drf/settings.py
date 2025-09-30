@@ -255,12 +255,12 @@ LOGGING = {
         "level": "INFO",
     },
 }
-
 # Cloudinary config
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.getenv("deo5wmxnv"),
-    "API_KEY": os.getenv("619131927264642"),
-    "API_SECRET": os.getenv("lP0p4eLpByhUK2DuT9zeSAHz_OE"),
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
 }
+
 # Set Cloudinary as default storage for media
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
