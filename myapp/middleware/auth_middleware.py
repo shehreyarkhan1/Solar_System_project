@@ -12,7 +12,7 @@ class AuthMiddleware:
             "/dashboard",
             "/products/",
             "/slider/",
-            "/registeruser/",
+            # "/registeruser/",
         ]
         
         # Get current path
