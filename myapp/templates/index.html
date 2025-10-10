@@ -3,10 +3,12 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/slider.css' %}">
+<link rel="stylesheet" href="{% static 'website-css/index.css' %}">
 {% endblock %}
 
 {% block content %}
 <!-- Hero Slider with Your Data -->
+
 <div class="hero-slider">
     <div class="slider-container">
         {% for slider in sliders %}
@@ -48,7 +50,7 @@
     <!-- Navigation Dots -->
     <div class="slider-nav">
         {% for slider in sliders %}
-        <div class="nav-dot {% if forloop.first %}active{% endif %}" onclick="currentSlide({{ forloop.counter }})"></div>
+        <div class="nav-dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter }}"></div>
         {% endfor %}
     </div>
 
@@ -57,15 +59,183 @@
     {% endif %}
 </div>
 
+<!-- Products Section -->
+<section class="products" id="products">
+    <div class="container">
+        <h2 class="section-title">Our Product Range</h2>
+        <p class="section-subtitle">Solutions for every energy need</p>
+        
+        <div class="products-grid">
+            {% for inv in inverter %}
+            <div class="product-card">
+                {% if inv.image %}
+                    <img src="{{ inv.image.url }}" alt="{{ inv.name }}" class="product-image" style="width: 100%; height: 250px; object-fit: cover;">
+                {% else %}
+                    <div class="product-image">
+                        {% if 'Residential' in inv.name %}🏠
+                        {% elif 'Commercial' in inv.name %}🏢
+                        {% elif 'Industrial' in inv.name %}🏭
+                        {% else %}⚡
+                        {% endif %}
+                    </div>
+                {% endif %}
+                
+                <div class="product-info">
+                    <h3>{{ inv.name }}</h3>
+                    <ul class="product-specs">
+                        <li>⚡ Power: {{ inv.power_capacity_kw }} kW</li>
+                        <li>🔌 Output: {{ inv.output_voltage }}</li>
+                        <li>📥 Input: {{ inv.input_voltage }}</li>
+                        <li>🏢 Brand: {{ inv.brand }}</li>
+                    </ul>
+                    <div class="product-price">
+                        {% if inv.price > 0 %}
+                            From ${{ inv.price|floatformat:0 }}
+                        {% else %}
+                            Contact Us
+                        {% endif %}
+                    </div>
+                    <button class="btn btn-primary" data-product-index="{{ forloop.counter0 }}" onclick="openModal(this.dataset.productIndex)">Learn More</button>
+                </div>
+            </div>
+            {% empty %}
+            <p>No inverters available at the moment.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
+<!-- Modal for Product Details -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="modal-body">
+            <div class="modal-image-section">
+                <div id="modalImage" class="modal-product-image"></div>
+            </div>
+            <div class="modal-details-section">
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <div class="modal-price" id="modalPrice"></div>
+                
+                <div class="modal-specifications">
+                    <h3>📋 Specifications</h3>
+                    <ul id="modalSpecs" class="modal-specs-list"></ul>
+                </div>
+                
+                <div class="modal-description">
+                    <h3>📝 Description</h3>
+                    <p id="modalDescription"></p>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-primary modal-btn">Get Quote</button>
+                    <button class="btn btn-secondary modal-btn" onclick="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JSON data for products -->
+<script id="products-data" type="application/json">{{ products_json|safe }}</script>
+
+<script>
+// Product data from Django - loaded from JSON script tag
+const productsDataElement = document.getElementById('products-data');
+const productsData = JSON.parse(productsDataElement.textContent);
+const products = productsData;
+
+// Open Modal
+function openModal(index) {
+    const modal = document.getElementById('productModal');
+    const product = products[index];
+    
+    // Set modal content
+    document.getElementById('modalTitle').textContent = product.name;
+    
+    // Set image or icon
+    const modalImage = document.getElementById('modalImage');
+    if (product.image) {
+        modalImage.innerHTML = `<img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">`;
+    } else {
+        modalImage.innerHTML = product.icon;
+        modalImage.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    }
+    
+    // Set price
+    const priceElement = document.getElementById('modalPrice');
+    if (product.price > 0) {
+        priceElement.textContent = `From $${Math.floor(product.price)}`;
+    } else {
+        priceElement.textContent = 'Contact Us for Pricing';
+    }
+    
+    // Set specifications
+    const specsHtml = `
+        <li><strong>⚡ Power Capacity:</strong> ${product.power} kW</li>
+        <li><strong>🔌 Output Voltage:</strong> ${product.output}</li>
+        <li><strong>📥 Input Voltage:</strong> ${product.input}</li>
+        <li><strong>🏢 Brand:</strong> ${product.brand}</li>
+        <li><strong>🔧 Model:</strong> ${product.model}</li>
+    `;
+    document.getElementById('modalSpecs').innerHTML = specsHtml;
+    
+    // Set description
+    document.getElementById('modalDescription').textContent = product.description;
+    
+    // Show modal
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+// Close Modal
+function closeModal() {
+    const modal = document.getElementById('productModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('productModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    let currentSlideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.nav-dot');
-    const totalSlides = slides.length;
-    let slideInterval;
+let currentSlideIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.nav-dot');
+const totalSlides = slides.length;
+let slideInterval;
+
+// Attach click handlers to nav dots (use index for slide navigation) and make them accessible
+if (dots && dots.length) {
+    dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+            currentSlide(idx + 1);
+        });
+        dot.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                currentSlide(idx + 1);
+            }
+        });
+        dot.setAttribute('tabindex', '0');
+        dot.setAttribute('role', 'button');
+        dot.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+    });
+}
 
     // Only initialize slider if there are slides
     if (totalSlides > 0) {

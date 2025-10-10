@@ -14,6 +14,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="{% static "admin.css" %}">
+    <link rel="stylesheet" href="{% static "css/dashboard.css" %}">
     <!-- Font Awesome -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -127,6 +128,9 @@
             </text>
           </svg>
         </a>
+        <button class="navbar-toggler d-md-none" type="button" id="sidebarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <h3 class="navbar-text custom-text">Solar Energy Power Inverter</h3>
         <form action="{% url 'logout' %}" method="POST" style="display: inline">
           {% csrf_token %}
@@ -232,12 +236,15 @@
     <script>
       // Sidebar functionality
       const sidebar = document.getElementById("sidebar");
-      const sidebarToggle = document.getElementById("sidebarToggle");
+      const sidebarToggle = document.querySelector(".navbar-toggler");
 
       // Toggle sidebar visibility on button click
-      sidebarToggle.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
-      });
+      if (sidebarToggle) {
+        sidebarToggle.addEventListener("click", (e) => {
+          e.preventDefault();
+          sidebar.classList.toggle("open");
+        });
+      }
 
       // Automatically hide sidebar when resizing to a small screen
       window.addEventListener("resize", () => {
@@ -251,6 +258,7 @@
         if (
           window.innerWidth <= 768 &&
           !sidebar.contains(e.target) &&
+          sidebarToggle &&
           !sidebarToggle.contains(e.target) &&
           sidebar.classList.contains("open")
         ) {

@@ -17,7 +17,6 @@ SECRET_KEY = os.getenv(
 )
 
 
-# SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1")
@@ -28,35 +27,17 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     # Add your custom domain if you have one
 ]
+DEBUG=True
 CSRF_TRUSTED_ORIGINS = [
     "https://*.vercel.app",
     # add your custom domain if you use one
 ]
 
 
-# Application definition
-
-# Add these to your existing settings.py file
-
-
 # Media files configuration (for image uploads)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-
-# Static files configuration
-# STATIC_URL = "/static/"
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-# Static files configuration
-# STATIC_URL = "/static/"
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-# STATICFILES_DIRS = [
-#     BASE_DIR / "myapp/static",
-# ]
 
 # Configure static files
 STATIC_URL = "/static/"
@@ -104,7 +85,7 @@ MIDDLEWARE = [
 ]
 
 # For WhiteNoise: enables efficient static file serving
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Media files (if needed)
 MEDIA_URL = "/media/"
@@ -131,9 +112,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "solar_system_drf.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
@@ -142,40 +120,21 @@ WSGI_APPLICATION = "solar_system_drf.wsgi.application"
 # }
 
 
-# for production
-# Database configuration for Neon (Production)
-# if os.getenv("DATABASE_URL"):
-#     tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.postgresql",
-#             "NAME": tmpPostgres.path[1:],
-#             "USER": tmpPostgres.username,
-#             "PASSWORD": tmpPostgres.password,
-#             "HOST": tmpPostgres.hostname,
-#             "PORT": tmpPostgres.port or 5432,
-#             "OPTIONS": {k: v[0] for k, v in parse_qs(tmpPostgres.query).items()},
-#         }
-#     }
-# else:
+
 # Local development database
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "solar_system",
-#         "USER": "postgres",
-#         "PASSWORD": "admin",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "solar_system",
+        "USER": "postgres",
+        "PASSWORD": "admin",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
+}
 
 
-# Replace the DATABASES section of your settings.py with this
-# Add these at the top of your settings.py
-
-
-# Replace the DATABASES section of your settings.py with this
+# for the deployment database Neon and for filing upload use cloudinary
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
 DATABASES = {
